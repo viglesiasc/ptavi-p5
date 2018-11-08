@@ -58,22 +58,31 @@ qué segundos tienen lugar esos envı́os?
 
 5. Analiza las dos primeras tramas de la captura.
 * ¿Qué servicio es el utilizado en estas tramas?
+	DNS
 * ¿Cuál es la dirección IP del servidor de nombres del ordenador
 que ha lanzado Ekiga?
+	80.58.61.250
 * ¿Qué dirección IP (de ekiga.net) devuelve el servicio de nombres?
+	86.64.162.35
 
 6. A continuación, hay más de una docena de tramas TCP/HTTP.
 * ¿Podrı́as decir la URL que se está pidiendo?
+	http://ekiga.net/ip/
 * ¿Qué user agent (UA) la está pidiendo?
+	Ekiga
 * ¿Qué devuelve el servidor?
+	La ip: 83.36.48.212
 * Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y
 vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo
 que está respondiendo el servidor?
+	Si lo lanzamos en un navegador nos responde: 85.59.43.97. La ip pública con la que 		usaríamos ekiga.
 
 7. Hasta la trama 45 se puede observar una secuencia de tramas del
 protocolo STUN.
 * ¿Por qué se hace uso de este protocolo?
+	Este protocolo permite encontrar la dirección, el puerto y el tipo de NAT cuando quieren configurar llamadas a un proveedor VoIP fuera de la red local.
 * ¿Podrı́as decir si estamos tras un NAT o no?
+	Si, porque utiliza STUN.
 
 8. La trama 46 es la primera trama SIP. En un entorno como el de Internet, lo habitual es desconocer la dirección IP de la otra parte al
 realizar una llamada. Por eso, todo usuario registra su localización en
@@ -81,10 +90,14 @@ un servidor Registrar. El Registrar guarda información sobre los
 usuarios en un servidor de localización que puede ser utilizado para
 localizar usuarios.
 * ¿Qué dirección IP tiene el servidor Registrar?
+	86.64.162.35
 * ¿A qué puerto (del servidor Registrar) se envı́an los paquetes
 SIP?
+	5060
 * ¿Qué método SIP utiliza el UA para registrarse?
+	Register
 * Además de REGISTER, ¿podrı́as decir qué instrucciones SIP entiende el UA?
+	INVITE, ACK, BYE, CANCEL, OPTIONS, NOTIFY, REFER, MESSAGE.
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 9. Fijémonos en las tramas siguientes a la número 46:
