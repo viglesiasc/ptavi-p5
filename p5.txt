@@ -102,12 +102,17 @@ SIP?
 
 9. Fijémonos en las tramas siguientes a la número 46:
 * ¿Se registra con éxito en el primer intento?
+	No. Responde con error 401 Unauthorized.
 * ¿Cómo sabemos si el registro se ha realizado correctamente o no?
+	Cuando la respuesta el 200 OK.
 * ¿Podrı́as identificar las diferencias entre el primer intento y el
 segundo de registro? (fı́jate en el tamaño de los paquetes y mira
 a qué se debe el cambio)
+	El tamaño del paquete del segundo intento es mayor puesto que lleva una cabecera más: 		Authorization.
+	
 * ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica
 las unidades.
+	3600 segundos.
 
 10. Una vez registrados, podemos efectuar una llamada. Vamos a probar
 con el servicio de eco de Ekiga que nos permite comprobar si nos
@@ -115,55 +120,79 @@ hemos conectado correctamente. El servicio de eco tiene la dirección
 sip:500@ekiga.net. Veamos el INVITE de cerca.
 * ¿Puede verse el nombre del que efectúa la llamada, ası́ como su
 dirección SIP?
+	Si. El nombre es Gregorio Robles y la dirección SIP es grex@ekiga.net.
 * ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
+	El cuerpo de la trama contiene lo referido al protocolo DNS (owner creator, session IS, session version, media attribute...).
 * ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
-* ¿En qué se diferencia el segundo INVITE más abajo del primero?
-¿A qué crees que se debe esto?
+	No tiene éxito. En la trama 85 se puede ver cómo le manda un error 407 Proxy Authentication Requiered.
+* ¿En qué se diferencia el segundo INVITE más abajo del primero? ¿A qué crees que se debe esto?
+	Que añade la cabecera Proxy-Authentication y tiene mayor tamaño el paquete.
 
 11. Una vez conectado, estudia el intercambio de tramas.
 * ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos?
+	Utilizan RTP para tiempo real y H.261 para vídeo.
 * ¿Cuál es el tamaño de paquete de los mismos?
+	Mayoritariamente 214
 * ¿Se utilizan bits de padding?
+	No. El campo Padding está a False.
 * ¿Cuál es la periodicidad de los paquetes (en origen; nota que la
 captura es en destino)?
+	Cada 20 ms.
 * ¿Cuántos bits/segundo se envı́an?
+	
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una
 opción RTP. Empecemos mirando los flujos RTP.
 * ¿Cuántos flujos hay? ¿por qué?
+	Hay dos flujos.
 * ¿Cuántos paquetes se pierden?
+	No se pierden paquetes.
 * ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el
 valor de delta?
+	Max Delta = 1290.48. Es el periodo de tiempo entre la llegada del paquete actual y al paquete anterior.
+
 * ¿Cuáles son los valores de jitter (medio y máximo)? ¿Qué
 quiere decir eso? ¿Crees que estamos ante una conversación de
 calidad?
+	Max Jitter = 153.24. Mean Jitter = 42.5. Si al no tener un jitter muy elevado.
+	
 
 13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony
 -> RTP -> Stream Analysis.
 * ¿Cuánto valen el delta y el jitter para el primer paquete que
 ha llegado?
+	Delta = Jitter = 0
 * ¿Podemos saber si éste es el primer paquete que nos han enviado?
+	Si por el número de secuencia.
 * Los valores de jitter son menores de 10ms hasta un paquete
 dado. ¿Cuál?
+	Hasta el paquete 247.
 * ¿A qué se debe el cambio tan brusco del jitter?
+	Se puede deber a una reducción del ancho de banda.
 * ¿Es comparable el cambio en el valor de jitter con el del delta?
 ¿Cual es más grande?
+	No. El cambio en el delta es mayor (554 ms).
 
 14. En Telephony selecciona el menú VoIP calls. Verás que se lista la
 llamada de voz IP capturada en una ventana emergente. Selecciona
 esa llamada y pulsa el botón Graph.
 * ¿Cuánto dura la conversación?
+	24.8 segundos aprox.
 * ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
 
 15. Identifica la trama donde se finaliza la conversación.
 * ¿Qué método SIP se utiliza?
+	BYE
 * ¿En qué trama(s)?
+	924 la primera y luego la vuelve a reenviar varias veces
 * ¿Por qué crees que se envı́a varias veces?
+	No recibe la respuesta 200 OK
 
 16. Finalmente, se cierra la aplicación de VozIP.
 * ¿Por qué aparece una instrucción SIP del tipo REGISTER?
 * ¿En qué trama sucede esto?
+	950 y 952.
 * ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
