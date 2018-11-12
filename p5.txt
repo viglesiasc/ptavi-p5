@@ -1,4 +1,4 @@
-Práctica 5 - Sesión SIP
+	Práctica 5 - Sesión SIP
 Protocolos para la Transmisión de Audio y Vı́deo en Internet
 Versión 8.0.1 - 6.11.2017
 
@@ -109,7 +109,7 @@ SIP?
 segundo de registro? (fı́jate en el tamaño de los paquetes y mira
 a qué se debe el cambio)
 	El tamaño del paquete del segundo intento es mayor puesto que lleva una cabecera más: 		Authorization.
-	
+
 * ¿Cuánto es el valor del tiempo de expiración de la sesión? Indica
 las unidades.
 	3600 segundos.
@@ -139,7 +139,7 @@ dirección SIP?
 captura es en destino)?
 	Cada 20 ms.
 * ¿Cuántos bits/segundo se envı́an?
-	
+
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
 12. Vamos a ver más a fondo el intercambio RTP. En Telephony hay una
@@ -156,7 +156,7 @@ valor de delta?
 quiere decir eso? ¿Crees que estamos ante una conversación de
 calidad?
 	Max Jitter = 153.24. Mean Jitter = 42.5. Si al no tener un jitter muy elevado.
-	
+
 
 13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony
 -> RTP -> Stream Analysis.
@@ -211,16 +211,23 @@ Ekiga para ver todo el proceso3 .
 19. Observa las diferencias en el inicio de la conversación entre el entorno
 del laboratorio y el del ejercicio anterior4 :
 * ¿Se utilizan DNS y STUN? ¿Por qué?
+	No utilizan DNS ni STUN.
 * ¿Son diferentes el registro y la descripción de la sesión?
 
 20. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
 * ¿Cuántos flujos tenemos?
+	Hay dos flujos, uno de ida y otro de vuelta.
 * ¿Cuál es su periodicidad?
+
 * ¿Cuánto es el valor máximo del delta y los valores medios y
 máximo del jitter?
+	Flujo (puerto destino 5062) --> Max Delta: 58.918; Max Jitter: 4.808; Mean Jitter: 0.717.
+	Flujo (puerto destino 21180) --> Max Delta: 39.33; Max Jitter: 15.156; Mean Jitter: 12.506.
 * ¿Podrı́as reproducir la conversación desde Wireshark? ¿Cómo?
 Comprueba que poniendo un valor demasiado pequeño para el
 buffer de jitter, la conversación puede no tener la calidad necesaria.
+	Mediante Telephony/VoIP Calls.
+	No he podido reproducir la llamada.
 * ¿Sabrı́as decir qué tipo de servicio ofrece sip:500@ekiga.net?
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 
@@ -229,4 +236,3 @@ buffer de jitter, la conversación puede no tener la calidad necesaria.
 paquetes SIP como p5.pcapng. Abre el fichero guardado para cerciorarte de que lo has hecho bien. Deberás añadirlo al repositorio.
 [Al terminar el ejercicio es recomendable hacer commit de los ficheros modificados]
 [Al terminar la práctica, realiza un push para sincronizar tu repositorio GitHub]
-
